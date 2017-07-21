@@ -81,7 +81,7 @@ sudo chmod 750 /opt/code/
 
 
 
-echo "****Started Provisioning*****\n"
+echo "****Started Provisioning*****"
 sudo apt-get update >/dev/null 2>&1
 mysql_prov
 github_prov
