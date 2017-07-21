@@ -2,7 +2,6 @@
 
 
 mysql_prov(){
-sudo apt-get update >/dev/null 2>&1
 msql=$( command -v mysql );
 if [ -z "$msql" ]; then
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password pythian'
@@ -12,6 +11,16 @@ if [ -z "$msql" ]; then
   touch dbcreate
 fi
 }
+github_prov(){
+githb=$( command -v git );
+if [ -z "$githb" ]; then
+  sudo apt-get install -y git >/dev/null 2>&1
+  echo "Finished Installing Github!!!"
+  touch gitcreate
+fi
+}
 
 echo "****Started Provisioning*****\n"
+sudo apt-get update >/dev/null 2>&1
 mysql_prov
+github_prov
