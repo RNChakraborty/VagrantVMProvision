@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#Vagrant Provisioing Script
+
 provision_git='true'
-provision_mysql='false'
-provision_apache='true'
+provision_mysql='true'
+provision_apache='false'
 # Install MySql if already not installed
 mysql_prov(){
 msql=$( command -v mysql );

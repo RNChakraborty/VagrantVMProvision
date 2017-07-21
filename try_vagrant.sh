@@ -1,5 +1,12 @@
  #!/bin/bash
  
+is_vagrant_up=`vagrant status | awk '/virtualbox/{$1="";print $0}'| awk '{$1=$1}1'`
+
+if [[ "$is_vagrant_up" = "running (virtualbox)"  ]]; then
+  echo "Vagrant is already running!!! Operation is aborted. Run vagrant destroy  and try again."
+  exit
+fi
+
 if [ -f log.txt ]; then
     rm -rf log.txt
 fi
@@ -26,6 +33,7 @@ select yn in "Yes" "No"; do
   esac
  done  
  echo "Wait while VM and the selected applications are being provisioned!!!"
+ echo "To see the log, use <tail -f log.txt>"
  vagrant up >> log.txt 2>&1
  cat log.txt | awk '/appout:/{$1=$2=$3="";print $0}'
 
