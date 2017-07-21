@@ -9,5 +9,5 @@ Vagrant.configure("2") do |config|
 	pvb.memory = 1024
     pvb.cpus = 2
   end
-  config.vm.provision :shell, :path => "scripts/prov.sh"
+  config.vm.provision :shell, :path => "provisioning_scripts/prov.sh"
 end

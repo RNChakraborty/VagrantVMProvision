@@ -1,34 +1,42 @@
 #!/bin/bash
 
-
+provision_git='false'
+provision_mysql='false'
+provision_apache='false'
+# Install MySql if already not installed
 mysql_prov(){
 msql=$( command -v mysql );
 if [ -z "$msql" ]; then
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password pythian'
   sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password pythian'
   sudo apt-get install -y mysql-server >/dev/null 2>&1
-  echo "Finished Installing Mysql!!!"
+  printf "Finished Installing Mysql!!!"
   touch dbcreate
 fi
 }
+
+#Install github if already not installed
 github_prov(){
 githb=$( command -v git );
 if [ -z "$githb" ]; then
   sudo apt-get install -y git >/dev/null 2>&1
-  echo "Finished Installing Github!!!"
+  printf "Finished Installing Github!!!"
   touch gitcreate
 fi
 }
+#Install apache if already not installed
 apache_prov(){
 apache=$( command -v apache2 );
 if [ -z "$apache" ]; then
   sudo apt-get install -y apache2 >/dev/null 2>&1
-  echo "Finished Installing Apache!!!"
+  printf "Finished Installing Apache!!!"
   touch apachecreate
 fi
 
 }
 
+#Test for installation of the required software. If successful, creates user and group. Manages permission 
+#and clones the git repo
 check_installation(){
  msql=$( command -v mysql );
  apache=$( command -v apache2 );
@@ -58,14 +66,14 @@ if [ -z "$apache" ]; then
  else
     apache_print='Installed'
  fi
+  printf "\n\n"
   echo "Github..."$github_print
   echo "MySql..."$msql_print
   echo "Apache..."$apache_print
  
  if [[ "$all_installation_complete" = "true" ]]; then
-     echo "All installation completed !!! Preparing to clone a sample git repository"
- else
-    echo "Problem with installation. Aborting !!!!"
+    # Clone git repo     
+	prepare_directory_and_clone_git
  fi
 }
 
@@ -79,12 +87,16 @@ sudo chown -R pythian:pythian /opt/code/
 sudo chmod 750 /opt/code/
 }
 
-
-
-echo "****Started Provisioning*****"
+printf "****Started Provisioning*****\n"
 sudo apt-get update >/dev/null 2>&1
-mysql_prov
-github_prov
-apache_prov
+
+ if [[ "$provision_mysql" = "true" ]]; then
+ mysql_prov
+fi 
+ if [[ "$provision_git" = "true" ]]; then
+ github_prov
+fi
+ if [[ "$provision_apache" = "true" ]]; then
+ apache_prov
+fi
 check_installation
-prepare_directory_and_clone_git
