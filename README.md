@@ -14,4 +14,4 @@ So, for example, if user chose to install only Github but not MySql or Apache, t
 
 Thus, in order for the tool to clone the git repository, all 3 of the applications (git,mysql,apache) needs to be installed and should be selected when asked while running try_vagrant.sh script
 
-** Remember to run vagrant destroy every time before running try_vagrant.sh. The try_vagrant.sh script will prompt you to run vagrant destroy if vagrant has already provisioned the VM **
+**The try_vagrant.sh script will prompt you to run vagrant destroy if vagrant has already provisioned the VM and is already running **
