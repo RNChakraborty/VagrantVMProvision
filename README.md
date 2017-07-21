@@ -14,6 +14,6 @@ Example: if user chose to install only Github but not MySql or Apache, then fina
   apache... Installed     
   Github respository will not be cloned!!! All 3 of the applications need to be installed   
 
-Thus, in order for the tool to clone the git repository, all 3 of the applications (git,mysql,apache) is required to be installed and should be selected when asked while running try_vagrant.sh script
+Thus, in order for the tool to clone the git repository, all 3 of the applications (git,mysql,apache) are required to be installed and should be selected when asked while running try_vagrant.sh script
 
 **The try_vagrant.sh script will prompt you to run vagrant destroy if vagrant has already provisioned the VM and is already running **
