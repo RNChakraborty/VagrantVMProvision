@@ -1,5 +1,9 @@
  #!/bin/bash
  
+if [ -f log.txt ]; then
+    rm -rf log.txt
+fi
+ 
 echo "Enable Github install while provisioning ? Type 1 or 2 " 
 select yn in "Yes" "No"; do
   case $yn in
@@ -21,7 +25,7 @@ select yn in "Yes" "No"; do
 	   No )  sed -i "s/^\(provision_apache='\).*/\1false'/" provisioning_scripts/prov.sh; break;;
   esac
  done  
- 
- 
- vagrant up 
+ echo "Wait while VM and the selected applications are being provisioned!!!"
+ vagrant up >> log.txt 2>&1
+ cat log.txt | awk '/appout:/{$1=$2=$3="";print $0}'
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-provision_git='false'
+provision_git='true'
 provision_mysql='false'
-provision_apache='false'
+provision_apache='true'
 # Install MySql if already not installed
 mysql_prov(){
 msql=$( command -v mysql );
@@ -67,13 +67,15 @@ if [ -z "$apache" ]; then
     apache_print='Installed'
  fi
   printf "\n\n"
-  echo "Github..."$github_print
-  echo "MySql..."$msql_print
-  echo "Apache..."$apache_print
+  echo "appout:	git..."$github_print
+  echo "appout:	mysql..."$msql_print
+  echo "appout:	apache..."$apache_print
  
  if [[ "$all_installation_complete" = "true" ]]; then
     # Clone git repo     
 	prepare_directory_and_clone_git
+ else
+    echo "appout:	Github repository will not be cloned !!!!. All 3 of the applications need to be installed."
  fi
 }
 
